@@ -39,6 +39,7 @@ const Header = () => {
       date: JSON.stringify(date),
       destination,
       options: JSON.stringify(options),
+    
     });
 
     navigate({

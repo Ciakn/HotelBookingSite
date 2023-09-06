@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 
 
 export default function useFetch(url, query = "") {
-    const baseUrl = `${url}?${query}`
-    console.log(query);
+  console.log(query);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  
   useEffect(() => {
+    const baseUrl = `${url}?${query}`
     async function fetchData() {
       try {
         setIsLoading(true);
