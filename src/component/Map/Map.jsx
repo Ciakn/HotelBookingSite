@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useHotels } from "../../Providers/HotelProvider";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import { useSearchParams } from "react-router-dom";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvent,
+} from "react-leaflet";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import useGeoLocation from "../../hooks/useLocation";
 // import useGeoLocation from "../../hooks/useGeoLocation";
-function Map() {
-  const { isLoading, hotels } = useHotels();
+function Map({hotels , isLoading}) {
+ 
   const [mapCenter, setMapCenter] = useState([51, 3]);
   const [searchParams, setSearchParams] = useSearchParams();
   const lat = searchParams.get("lat");
@@ -40,6 +47,7 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
+        <Detectclick />
         <ChangeCenter position={mapCenter} />
         {hotels.map((item) => {
           return (
@@ -59,3 +67,11 @@ const ChangeCenter = ({ position }) => {
   const map = useMap();
   map.setView(position);
 };
+
+function Detectclick() {
+  const navigate = useNavigate();
+  useMapEvent({
+    click: (e) => navigate(`/bookmark/add/?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
+  });
+  return null;
+}

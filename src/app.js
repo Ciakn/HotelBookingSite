@@ -7,9 +7,15 @@ import AppLayout from "./component/AppLayout/AppLayout";
 import Hotels from "./component/hotels/Hotels";
 import HotelProvider from "./Providers/HotelProvider";
 import SingleHotel from "./component/SingleHotel/SingleHotel";
+import BookMarkLayout from "./component/BookMarkLayout/BookMarkLayout";
+import BookMarkProvider from "./Providers/BookMarkProvider";
+import BookMark from "./component/BookMark/BookMark";
+import SingleBookMark from "./component/SingleBookMark.jsx/SingleBookMark";
+import AddNewBookMark from "./component/AddNewBookMark/AddNewBookMark";
 const App = () => {
   return (
-    <HotelProvider>
+   <BookMarkProvider>
+     <HotelProvider>
       <Toaster />
       <Header />
       <Routes>
@@ -18,8 +24,14 @@ const App = () => {
           <Route index element={<Hotels/>}/>
           <Route path=":id" element={<SingleHotel/>}/>
         </Route>
+        <Route path="/bookmark" element={<BookMarkLayout/>}>
+        <Route index element={<BookMark/>}/>
+        <Route path=":id" element={<SingleBookMark/>}/>
+        <Route path="add" element={<AddNewBookMark/>}/>
+        </Route>
       </Routes>
     </HotelProvider>
+   </BookMarkProvider>
   );
 };
 

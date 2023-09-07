@@ -14,13 +14,11 @@ function HotelProvider({ children }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const destination = searchParams.get("destination");
   const room = JSON.parse(searchParams.get("options"))?.room;
-  console.log(room);
-  console.log(destination);
+
   const { isLoading, data: hotels } = useFetch(
     "http://localhost:5000/hotels",
     `q=${destination || ""}&accommodates_gte=${room || 1}`
   );
-console.log(currentHotel);
   async function getHotel(id) {
     setIsLoadingCurrentHotel(true)
     try {
